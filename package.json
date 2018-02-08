@@ -1,0 +1,29 @@
+{
+  "name": "rog_server",
+  "version": "0.0.1",
+  "description": "Document search assistant",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server",
+    "test": "mocha test --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vramdhanie/rog_server.git"
+  },
+  "keywords": [
+    "document",
+    "search"
+  ],
+  "author": "Vincent Ramdhanie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vramdhanie/rog_server/issues"
+  },
+  "homepage": "https://github.com/vramdhanie/rog_server#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^5.0.3",
+    "nodemon": "^1.14.12"
+  }
+}
