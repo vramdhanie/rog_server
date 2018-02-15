@@ -23,7 +23,9 @@
   "homepage": "https://github.com/vramdhanie/rog_server#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "express-winston": "^2.4.0",
     "mongoose": "^5.0.3",
-    "nodemon": "^1.14.12"
+    "nodemon": "^1.14.12",
+    "winston": "^2.4.0"
   }
 }

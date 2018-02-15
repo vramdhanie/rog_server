@@ -2,6 +2,9 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const winston = require('winston');
+const expressWinston = require('express-winston');
+
 const { DATABASE_URL, PORT } = require('./config');
 
 const { Document } = require('./documents/model');
@@ -10,6 +13,20 @@ const { Document } = require('./documents/model');
 mongoose.Promise = global.Promise;
 
 const app = express();
+
+
+app.use(expressWinston.logger({
+  transports: [
+      new winston.transports.Console({
+        json: true,
+        colorize: true
+      })
+  ],
+  meta: true,
+  expressFormat: true,
+  colorize: true
+}));
+
 
 //dummy end point
 app.get('/', (req, res) => {
