@@ -26,7 +26,9 @@ app.use(expressWinston.logger({
   colorize: true
 }));
 
-app.use('/document', documentRouter);
+app.use(express.static('public'))
+
+app.use('/v1/document', documentRouter);
 
 //dummy end point
 app.get('/', (req, res) => {

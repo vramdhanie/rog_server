@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server",
-    "test": "mocha test --exit"
+    "test": "mocha test --exit",
+    "doc": "npx apidoc -i documents/ -o public/"
   },
   "repository": {
     "type": "git",
