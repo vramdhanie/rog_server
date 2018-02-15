@@ -9,4 +9,4 @@ const documentSchema = mongoose.Schema({
 });
 
 const Document = mongoose.model('document', documentSchema);
-module.exports = { Document };
+module.exports = Document ;
