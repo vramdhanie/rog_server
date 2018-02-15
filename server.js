@@ -7,13 +7,12 @@ const expressWinston = require('express-winston');
 
 const { DATABASE_URL, PORT } = require('./config');
 
-const { Document } = require('./documents/model');
+const { router: documentRouter } = require('./documents/');
 
 //configure mongoose
 mongoose.Promise = global.Promise;
 
 const app = express();
-
 
 app.use(expressWinston.logger({
   transports: [
@@ -27,23 +26,11 @@ app.use(expressWinston.logger({
   colorize: true
 }));
 
+app.use('/document', documentRouter);
 
 //dummy end point
 app.get('/', (req, res) => {
   res.json({messsage:"It Works!"});
-});
-
-app.post('/document', (req, res) => {
-  //validate input
-  Document
-      .create({
-        title: req.body.title,
-        author: 'A Author',
-        publishedDate: new Date()
-      })
-      .then(document => {
-        res.status(201).json(document);
-      });
 });
 
 let server;
