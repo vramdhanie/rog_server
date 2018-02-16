@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/vramdhanie/rog_server#readme",
   "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "express": "^4.16.2",
     "express-winston": "^2.4.0",
     "mongoose": "^5.0.3",

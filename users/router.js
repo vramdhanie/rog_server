@@ -1,5 +1,5 @@
 'user strict';
 const express = require('express');
-const router = express.Roter();
+const router = express.Router();
 
 module.exports = router;
