@@ -42,8 +42,8 @@ router.get('/', (req, res) => {
  * @apiName createDocuments
  * @apiGroup Document
  *
- * @apiParam {String} [title] Mandatory Title of new document
- * @apiParam {String} [description] Mandatory Long description of document
+ * @apiParam {String} title Title of new document
+ * @apiParam {String} description Long description of document
  *
  * @apiSuccess (201){Object} Document The created document
  * @apiSuccessExample {json} Success-response:
