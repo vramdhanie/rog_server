@@ -1,7 +1,7 @@
 'user strict';
 const express = require('express');
 const router = express.Router();
-
+const validator = require('validator');
 const User = require('./models');
 
 /**
@@ -51,6 +51,52 @@ router.post('/', (req, res) => {
         });
   }
 
+  const stringFields = ['username', 'password', 'firstName', 'lastName'];
+  const nonStringField = stringFields
+      .find(field =>
+          field in req.body
+          && validator.isAscii(req.body[field]));
+
+  if(nonStringField){
+    return res
+        .status(422)
+        .json({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Incorrect field type: String expected',
+          location: nonStringField
+        });
+  }
+
+  const explicitlyTrimmedFields = ['username', 'password'];
+  const nonTrimmedField = explicitlyTrimmedFields
+      .find(field =>
+          req.body[field].trim() !== req.body[field]);
+
+  if(nonTrimmedField){
+    return res
+        .status(422)
+        .json({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Cannot use space in username or password',
+          location: nonTrimmedField
+        });
+  }
+
+  if(validator.isLength(req.body.username, {min:1})){
+    return res
+        .status(422)
+        .json({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Username must contain at least one character',
+          location: 'username'
+        });
+  }
+  if(validator.isLength(req.body.password, {min:10,max:72})){
+
+  }
 
 
 });
