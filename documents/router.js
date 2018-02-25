@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Document = require('./model');
+const passport = require('passport');
+const { jwtStrategy } = require('../auth');
+
+passport.use(jwtStrategy);
 
 /**
  * @api {get} /document/ Request all documents
@@ -19,7 +23,7 @@ const Document = require('./model');
  *      ]
  *
  */
-router.get('/', (req, res) => {
+router.get('/', jwtStrategy, (req, res) => {
   Document
       .find()
       .then(documents => {
@@ -56,7 +60,7 @@ router.get('/', (req, res) => {
  *        }
  *
  */
-router.post('/', (req, res) => {
+router.post('/', jwtStrategy, (req, res) => {
   //validate input
   Document
       .create({
