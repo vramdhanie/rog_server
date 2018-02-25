@@ -94,10 +94,62 @@ router.post('/', (req, res) => {
           location: 'username'
         });
   }
-  if(validator.isLength(req.body.password, {min:10,max:72})){
-
+  if(validator.isLength(req.body.password, {min:6,max:72})){
+    return res
+        .status(422)
+        .json({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Password must be between 6 and 72 characters',
+          location: 'password'
+        });
   }
 
+  let { username, password, firstName = '', lastName = '' } = req.body;
+  firstName = firstName.trim();
+  lastName = lastName.trim();
+
+  return User
+      .find({username})
+      .count()
+      .then(count => {
+        if( count > 0){
+          return Promise.reject({
+            code: 422,
+            reason: 'ValidationError',
+            message: 'Username is not available',
+            location: 'username'
+          });
+        }
+        return User.hashPassword(password);
+      })
+      .then(hash => {
+        return User
+            .create({
+              username,
+              password: hash,
+              firstName,
+              lastName
+            });
+      })
+      .then(user => {
+        return res
+            .status(201)
+            .json(user.serialize());
+      })
+      .catch(err => {
+        if(err.reason === 'ValidationError'){
+          return res
+              .status(err.code)
+              .json(err);
+        }
+        res
+            .status(500)
+            .json({
+              code: 500,
+              message: 'Internal server error'
+            });
+      })
 
 });
 
