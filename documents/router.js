@@ -3,6 +3,8 @@ const router = express.Router();
 const Document = require('./model');
 const passport = require('passport');
 const { jwtStrategy } = require('../auth');
+const bodyParser = require('body-parser');
+router.use(bodyParser.json());
 
 passport.use(jwtStrategy);
 
@@ -62,14 +64,22 @@ router.get('/', jwtStrategy, (req, res) => {
  */
 router.post('/', jwtStrategy, (req, res) => {
   //validate input
+  const { title, author, publishDate } = req.body;
   Document
       .create({
-        title: req.body.title,
-        author: 'A Author',
-        publishedDate: new Date()
+        title: title,
+        author: author,
+        publishedDate: publishDate
       })
       .then(document => {
-        res.status(201).json(document);
+        res
+            .status(201)
+            .json(document);
+      })
+      .catch(err => {
+        res
+            .status(500)
+            .json(err);
       });
 });
 
