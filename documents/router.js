@@ -25,7 +25,7 @@ passport.use(jwtStrategy);
  *      ]
  *
  */
-router.get('/', jwtStrategy, (req, res) => {
+router.get('/',  (req, res) => {
   Document
       .find()
       .then(documents => {
@@ -62,7 +62,7 @@ router.get('/', jwtStrategy, (req, res) => {
  *        }
  *
  */
-router.post('/', jwtStrategy, (req, res) => {
+router.post('/',  (req, res) => {
   //validate input
   const { title, author, publishDate } = req.body;
   Document

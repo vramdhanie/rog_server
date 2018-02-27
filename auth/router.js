@@ -19,7 +19,7 @@ const createAuthToken = user => jwt.sign(
 
 const localAuth = passport.authenticate('local', { session: false });
 
-router.user(bodyParser.json());
+router.use(bodyParser.json());
 
 /**
  * @api {post} /auth/ Login the user
