@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server",
     "test": "mocha test --exit",
-    "doc": "npx apidoc -i documents/ -i users/ -i auth/ -o public/"
+    "doc": "npx apidoc -i documents/ -i users/ -i auth/ -i institutions/ -o public/"
   },
   "repository": {
     "type": "git",
