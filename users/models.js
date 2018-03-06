@@ -30,14 +30,24 @@ const UserSchema = mongoose.Schema({
   }
 });
 
-UserSchema.methods.serialize = () => ({
-  username: this.username,
-  name: `${this.firstName} ${this.lastName}`
-});
+class _User {
+  serialize(){
+    return {
+      username: this.username,
+      name: `${this.firstName} ${this.lastName}`
+    }
+  }
 
-UserSchema.methods.validatePassword = password => bcrypt.compare(password, this.password);
+  validatePassword(password){
+    return bcrypt.compare(password, this.password);
+  }
 
-UserSchema.statics.hashPassword = password => bcrypt.hash(password, 10);
+  static hashPassword(password){
+    return bcrypt.hash(password, 10);
+  }
+}
+
+UserSchema.loadClass(_User);
 
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

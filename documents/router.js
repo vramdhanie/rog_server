@@ -8,6 +8,9 @@ router.use(bodyParser.json());
 
 passport.use(jwtStrategy);
 
+const jwtAuth = passport.authenticate('jwt', { session: false });
+
+
 /**
  * @api {get} /document/ Request all documents
  * @apiName getDocuments
@@ -25,7 +28,7 @@ passport.use(jwtStrategy);
  *      ]
  *
  */
-router.get('/',  (req, res) => {
+router.get('/', jwtAuth, (req, res) => {
   Document
       .find()
       .then(documents => {
@@ -42,6 +45,21 @@ router.get('/',  (req, res) => {
             });
       });
 });
+
+
+router.get('/role1', jwtAuth, (req, res) => {
+  res.json({
+    message: "Congratulations, you are role1"
+  });
+});
+
+
+router.get('/role2', jwtAuth, (req, res) => {
+  res.json({
+    message: "Congratulations, you are role2"
+  });
+});
+
 
 /**
  * @api {post} /document/ Create a new document
