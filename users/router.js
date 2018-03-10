@@ -108,6 +108,17 @@ router.post('/',  jsonParser, (req, res) => {
         });
   }
 
+  if(!validator.isEmail(req.body.email)){
+    return res
+        .status(422)
+        .json({
+          code: 422,
+          reason: 'ValidationError',
+          message: 'Please provide valid email address',
+          location: 'email'
+        });
+  }
+
   let { username, password, firstName = '', lastName = '', email } = req.body;
   firstName = firstName.trim();
   lastName = lastName.trim();
